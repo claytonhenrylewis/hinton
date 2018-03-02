@@ -7,7 +7,8 @@ include="no"
 while IFS= read -r var
 do
 	genus=$(echo $var | awk -F'/' '{print $7}')
-	img=$(echo $var | awk -F'/' '{print $8}')
+	img=$(echo $var | awk -F'/' '{print $9}')
+	num=$(echo $img | awk -F'-' '{print $3}')
 	if [ "$genus" != "$currentGenus" ]
 	then
 		count=$(grep "$genus," classCounts.csv | awk -F',' '{print $2}')
@@ -26,8 +27,15 @@ do
 		then
 			if (( ${#img} > 1 ))
 			then
-				echo "$var,$genus" >> train_set.csv
+				#echo "$var,$genus" >> train_set.csv
 				#echo "$var,$genus"
+				#echo "$img,$num"
+				if [[ $num == 9* ]] || [[ $num == 8* ]]
+				then
+					echo "$var,$genus" >> eval_set.csv
+				else
+					echo "$var,$genus" >> train_set.csv
+				fi
 			fi
 		fi
 	fi
