@@ -76,20 +76,20 @@ class Evaluator(object):
       if self.stream:
         self.sv.start_queue_runners(session)
         for _ in range(num_eval_batches):
-          session.run(self.tensors.metric_updates)
+          session.run(self.tensors.metric_updates, options=tf.RunOptions(timeout_in_ms=10000))
       else:
         if not self.batch_of_examples:
           self.sv.start_queue_runners(session)
           for i in range(num_eval_batches):
-            self.batch_of_examples.append(session.run(self.tensors.examples))
+            self.batch_of_examples.append(session.run(self.tensors.examples, options=tf.RunOptions(timeout_in_ms=10000)))
 
         for i in range(num_eval_batches):
           session.run(self.tensors.metric_updates,
-                      {self.tensors.examples: self.batch_of_examples[i]})
+                      {self.tensors.examples: self.batch_of_examples[i]}, options=tf.RunOptions(timeout_in_ms=10000))
 
-      metric_values = session.run(self.tensors.metric_values)
+      metric_values = session.run(self.tensors.metric_values, options=tf.RunOptions(timeout_in_ms=10000))
       global_step = tf.train.global_step(session, self.tensors.global_step)
-      summary = session.run(self.summary)
+      summary = session.run(self.summary, options=tf.RunOptions(timeout_in_ms=10000))
       self.summary_writer.add_summary(summary, global_step)
       self.summary_writer.flush()
       return metric_values
@@ -124,7 +124,7 @@ class Evaluator(object):
             logging.info('%3d%% predictions processed', progress)
             last_log_progress = progress
 
-          res = session.run(to_run)
+          res = session.run(to_run, options=tf.RunOptions(timeout_in_ms=10000))
           for element in range(len(res[0])):
             f.write('%s' % res[0][element])
             for prediction in res[1:]:
@@ -225,7 +225,7 @@ class Trainer(object):
           while not self.sv.should_stop() and self.global_step < max_steps:
             try:
               # Run one step of the model.
-              self.global_step = session.run(to_run)[0]
+              self.global_step = session.run(to_run, options=tf.RunOptions(timeout_in_ms=10000))[0]
               self.local_step += 1
 
               self.now = time.time()

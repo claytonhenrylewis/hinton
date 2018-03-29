@@ -381,11 +381,11 @@ class Model(object):
       output_dir: Path to the folder to be used to output the model.
     """
     logging.info('Exporting prediction graph to %s', output_dir)
-    with tf.Session(graph=tf.Graph()) as sess:
+    with tf.Session(graph=tf.Graph(), config=tf.ConfigProto(operation_timeout_in_ms=60000)) as sess:
       # Build and save prediction meta graph and trained variable values.
       inputs, outputs = self.build_prediction_graph()
       init_op = tf.global_variables_initializer()
-      sess.run(init_op)
+      sess.run(init_op, options=tf.RunOptions(timeout_in_ms=10000))
       #sess.eval(confusion)
       self.restore_from_checkpoint(sess, self.inception_checkpoint_file,
                                    last_checkpoint)
