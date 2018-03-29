@@ -6,7 +6,7 @@ while IFS= read -r var
 do
 	genus=$(echo $var | awk -F',' '{print $1}')
 	count=$(echo $var | awk -F',' '{print $2}')
-	if (( count > 499 ))
+	if (( count > 10000 ))
 	then
 		echo "$genus" >> label.txt
 		

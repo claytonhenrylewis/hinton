@@ -10,7 +10,7 @@ do
 	if [ "$genus" != "$currentGenus" ]
 	then
 		count=$(grep "$genus," classCounts.csv | awk -F',' '{print $2}')
-		if (( count > 499 ))
+		if (( count > 10000 ))
 		then
 			include="yes"
 		else

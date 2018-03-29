@@ -1,6 +1,6 @@
 #!/bin/bash
 
-input="label.txt"
+input="label_10000.txt"
 genus[0]=" "
 i=0
 while IFS= read -r var
