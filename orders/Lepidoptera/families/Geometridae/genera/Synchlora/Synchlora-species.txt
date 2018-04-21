@@ -1,0 +1,10 @@
+aerata
+bistriaria
+cupedinaria
+faseolaria
+herbaria
+frondaria
+irregularia
+pectinaria
+xysteraria
+aerata-frondaria

@@ -1,0 +1,16 @@
+aciculus
+alutaceus
+brevicollis
+castaneus
+discolor
+dispar
+fortis
+fuscus
+histricus
+interruptus
+metallicus
+moestus
+pratensis
+substriatus
+sulcatus
+vestitus

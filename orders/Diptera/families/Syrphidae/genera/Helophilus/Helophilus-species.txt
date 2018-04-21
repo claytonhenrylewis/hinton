@@ -1,0 +1,7 @@
+fasciatus
+hybridus
+lapponicus
+latifrons
+obscurus
+groenlandicus
+intentus

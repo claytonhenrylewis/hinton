@@ -1,0 +1,3 @@
+attentus
+perattentus
+sigmoides

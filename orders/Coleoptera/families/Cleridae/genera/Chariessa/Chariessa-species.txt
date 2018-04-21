@@ -1,0 +1,7 @@
+catalina
+dichroa
+elegans
+floridana
+pilosa
+texana
+vestita

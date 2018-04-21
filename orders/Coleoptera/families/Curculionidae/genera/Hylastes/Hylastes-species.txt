@@ -1,0 +1,8 @@
+gracilis
+longicollis
+macer
+nigrinus
+opacus
+porculus
+salebrosus
+tenuis

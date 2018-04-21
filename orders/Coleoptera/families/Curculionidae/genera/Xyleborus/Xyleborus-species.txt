@@ -1,0 +1,15 @@
+affinis
+bispinatus
+celsus
+ferrugineus
+glabratus
+horridus
+impressus
+intrusus
+pfeili
+pubescens
+seriatus
+spinulosus
+viduus
+volvulus
+xylographus

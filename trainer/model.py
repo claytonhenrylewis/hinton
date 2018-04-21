@@ -78,7 +78,7 @@ def create_model():
   parser = argparse.ArgumentParser()
   # Label count needs to correspond to nubmer of labels in dictionary used
   # during preprocessing.
-  parser.add_argument('--label_count', type=int, default=7)
+  parser.add_argument('--label_count', type=int, default=4)
   parser.add_argument('--dropout', type=float, default=0.5)
   parser.add_argument(
       '--inception_checkpoint_file',
@@ -87,7 +87,7 @@ def create_model():
   args, task_args = parser.parse_known_args()
   override_if_not_in_args('--max_steps', '1000', task_args)
   override_if_not_in_args('--batch_size', '100', task_args)
-  override_if_not_in_args('--eval_set_size', '22914', task_args)
+  override_if_not_in_args('--eval_set_size', '5460', task_args)
   override_if_not_in_args('--eval_interval_secs', '2', task_args)
   override_if_not_in_args('--log_interval_secs', '2', task_args)
   override_if_not_in_args('--min_train_eval_rate', '2', task_args)
@@ -107,6 +107,8 @@ class GraphReferences(object):
     self.keys = None
     self.predictions = []
     self.input_jpeg = None
+    self.confusion = []
+    self.confusion_image = None
 
 
 class Model(object):
@@ -287,22 +289,24 @@ class Model(object):
     accuracy_updates, accuracy_op = util.accuracy(logits, labels)
 	
 	# Confusion matrix
-    batch_confusion = tf.confusion_matrix(labels, prediction, all_labels_count, name='batch_confusion')
-    confusion = tf.Variable( tf.zeros([all_labels_count , all_labels_count], dtype=tf.int32 ), name='confusion' )
-    confusion_update = confusion.assign( confusion + batch_confusion )
-    confusion_image = tf.reshape( tf.cast( confusion_update, tf.float32), [1, all_labels_count, all_labels_count, 1] )
+    # batch_confusion = tf.confusion_matrix(labels, prediction, all_labels_count, name='batch_confusion')
+    # confusion = tf.Variable( tf.zeros([all_labels_count , all_labels_count], dtype=tf.int32 ), name='confusion' )
+    # confusion_update = confusion.assign( confusion + batch_confusion )
+    # confusion_image = tf.reshape( tf.cast( confusion_update, tf.float32), [1, all_labels_count, all_labels_count, 1] )
 
     if not is_training:
       tf.summary.scalar('accuracy', accuracy_op)
       tf.summary.scalar('loss', loss_op)
-      tf.summary.image('confusion',confusion_image)
+      # tf.summary.image('confusion',confusion_image)
 
     #sess.eval(confusion)
 
     #tensors.metric_updates = loss_updates + accuracy_updates + confusion_update
     #tensors.metric_values = [loss_op, accuracy_op, confusion]
     tensors.metric_updates = loss_updates + accuracy_updates
-    tensors.metric_values = [loss_op, accuracy_op, confusion]
+    tensors.metric_values = [loss_op, accuracy_op]
+    # tensors.confusion = confusion
+    # tensors.confusion_image = confusion_image
     return tensors
 
   def build_train_graph(self, data_paths, batch_size):
@@ -381,11 +385,11 @@ class Model(object):
       output_dir: Path to the folder to be used to output the model.
     """
     logging.info('Exporting prediction graph to %s', output_dir)
-    with tf.Session(graph=tf.Graph(), config=tf.ConfigProto(operation_timeout_in_ms=60000)) as sess:
+    with tf.Session(graph=tf.Graph()) as sess:
       # Build and save prediction meta graph and trained variable values.
       inputs, outputs = self.build_prediction_graph()
       init_op = tf.global_variables_initializer()
-      sess.run(init_op, options=tf.RunOptions(timeout_in_ms=10000))
+      sess.run(init_op)
       #sess.eval(confusion)
       self.restore_from_checkpoint(sess, self.inception_checkpoint_file,
                                    last_checkpoint)

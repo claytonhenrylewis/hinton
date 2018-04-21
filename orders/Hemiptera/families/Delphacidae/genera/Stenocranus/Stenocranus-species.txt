@@ -1,0 +1,8 @@
+acutus
+brunneus
+dorsalis
+felti
+lautus
+similis
+unipunctatus
+vittatus

@@ -1,0 +1,13 @@
+cognatus
+cognatus-group
+fuscatus
+fuscipes
+insulanus
+invidiosus
+mirabilis
+pallidus
+pennsylvanicus
+vagus
+vernus
+vetulus
+virginicus

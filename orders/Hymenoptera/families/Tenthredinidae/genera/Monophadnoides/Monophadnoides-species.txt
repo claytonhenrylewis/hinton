@@ -1,0 +1,3 @@
+osgoodi
+pauper
+rubi

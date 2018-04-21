@@ -1,0 +1,6 @@
+borealis
+luridus
+marmoratus
+pictus
+tristis
+variabilis

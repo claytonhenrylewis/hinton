@@ -1,6 +1,6 @@
 #!/bin/bash
 
-input="train_set.csv"
+input="train_set_order_sorted.csv"
 current=""
 count=0
 while IFS= read -r var

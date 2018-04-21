@@ -1,0 +1,4 @@
+aemula
+disjuncta
+signatipes
+t-signum

@@ -1,0 +1,4 @@
+deflatus
+paugus
+persimilis
+stagnalis

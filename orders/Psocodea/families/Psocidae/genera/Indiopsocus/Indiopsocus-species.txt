@@ -1,0 +1,10 @@
+new-to-fauna
+bisignatus
+campestris
+ceterus
+coquilletti
+infumatus
+lacteus
+lanceolatus
+palmatus
+texanus

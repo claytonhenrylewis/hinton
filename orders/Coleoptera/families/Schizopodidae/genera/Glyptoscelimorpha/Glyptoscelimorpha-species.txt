@@ -1,0 +1,3 @@
+viridis
+marmorata
+juniperae

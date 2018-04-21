@@ -1,0 +1,10 @@
+notatus
+elegans
+flavipes
+maculatus
+neopulchellus
+transversus
+grandiceps
+micans
+parviceps
+reflexus

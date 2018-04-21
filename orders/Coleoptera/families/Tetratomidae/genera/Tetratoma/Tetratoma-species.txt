@@ -1,0 +1,3 @@
+concolor
+tessellata
+truncorum
